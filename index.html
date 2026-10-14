@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#ffffff">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='13' fill='none' stroke='%231c1c1c' stroke-width='3'/%3E%3Cpath d='M16 9v7.5l5 3' fill='none' stroke='%231c1c1c' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E">
+<title>时间</title>
+<style>
+@font-face{
+  font-family:ClockFace;
+  src:url(data:font/ttf;base64,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) format('truetype');
+  font-weight:400;font-style:normal;font-display:block;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%}
+@supports(height:100dvh){html,body{height:100dvh}}
+body{
+  background:#fff;color:#1c1c1c;overflow:hidden;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",Helvetica,Arial,sans-serif;
+  display:flex;align-items:center;justify-content:center;
+  -webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent;
+  overscroll-behavior:none;touch-action:manipulation;
+  transition:background .6s ease,color .6s ease;
+}
+/* 主题明暗（.dk=暗色），由右上角屏保按钮后面的亮度开关切换。
+   暗色下整页转深底白字：霓虹方块只有在暗底上才亮得起来（白底上青/黄/白会直接看不见）。
+   只改配色，不动布局与字号，时钟依旧占据原来的位置。 */
+body.dk{background:#04050b;color:#eaeef7}
+body.dk #meta{color:#a9b2c6}
+body.dk #tm{background:#11131c;border-color:#272b3a;box-shadow:0 8px 28px rgba(0,0,0,.62)}
+body.dk #tm>*{color:#eaeef7}
+body.dk #tm>.cur::before{background:#eaeef7}
+body.dk #tm>a:hover{background:#1c2030}
+/* 亮色屏保的底：比纯白略沉一点，好衬出深彩方块 */
+body.sv:not(.dk){background:#f4f6fb}
+/* 字压在随机方块上局部会糊，屏保开启时给时钟与日期叠一层光晕把字托出来：
+   暗色主题用黑光晕（字是白的），亮色主题用白光晕（字是深的）。关闭即移除，
+   纯色底的时间页不受影响。text-shadow 不参与布局，字号与位置一概不变。 */
+body.sv.dk #clock{text-shadow:0 0 .08em rgba(0,0,0,.85),0 0 .24em rgba(0,0,0,.55)}
+body.sv.dk #meta{text-shadow:0 0 .5em rgba(0,0,0,.85)}
+body.sv:not(.dk) #clock{text-shadow:0 0 .08em rgba(255,255,255,.95),0 0 .26em rgba(255,255,255,.75)}
+body.sv:not(.dk) #meta{text-shadow:0 0 .5em rgba(255,255,255,.95)}
+#stage{position:relative;z-index:1}
+#clock{
+  position:relative;
+  font-family:ClockFace,-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;
+  font-size:min(17vw,38vh);
+  font-weight:400;line-height:1;
+  white-space:nowrap;user-select:none;
+  --cg:.34em; /* 冒号两侧额外留白，越大越松 */
+  transition:text-shadow .6s ease;/* 随屏保淡入/淡出一起过渡 */
+}
+/* 等宽数字：本字体数字为比例宽度（1 是 .410em，其余约 .592em，冒号 .213em），
+   不锁宽时整串宽度会在 2.89em~3.98em 间跳动，故按最宽数字固定每格宽度 */
+#clock i{display:inline-block;font-style:normal;text-align:center}
+#clock i.n{width:.592em}
+#clock i.c{width:calc(.213em + var(--cg))}
+/* 上/下午标：A=.864em、M=.874em、P=.668em，AM 与 PM 相差 .196em，
+   故锁成最宽的 1.738em（相对自身 0.22 号字），避免 AM/PM 切换时再次抖动 */
+#clock i.ap{display:none;width:1.738em;margin-left:.85em;font-size:.26em}
+body.h12 #clock i.ap{display:inline-block}
+#bar{position:fixed;top:0;right:0;z-index:4;display:flex}
+#bar button{width:58px;height:58px;padding:0;border:0;background:none;color:inherit;
+  cursor:pointer;opacity:.26;line-height:1;display:flex;align-items:center;justify-content:center;
+  font-size:13px;font-weight:600;letter-spacing:.02em;font-family:inherit;
+  transition:opacity .2s ease;-webkit-tap-highlight-color:transparent}
+#bar button:hover{opacity:1}
+@media (hover:none){#bar button{opacity:.45}}
+#th::after{content:"";width:0;height:0;margin-left:3px;
+  border-left:3.5px solid transparent;border-right:3.5px solid transparent;border-top:4px solid currentColor}
+#fs svg{display:block;width:26px;height:26px}
+#fs .i2{display:none}
+body.fs #fs .i1{display:none}
+body.fs #fs .i2{display:block}
+#svb svg{display:block;width:24px;height:24px}
+#svb .i2{display:none}
+body.sv #svb .i1{display:none}
+body.sv #svb .i2{display:block}
+body.sv #svb{opacity:1}
+/* 亮度开关：图标直接反映当前主题（太阳=亮色，月亮=暗色），点了就换到另一种 */
+#lm svg{display:block;width:24px;height:24px}
+#lm .i2{display:none}
+body.dk #lm .i1{display:none}
+body.dk #lm .i2{display:block}
+body.dk #lm{opacity:1}
+/* 屏保方块层：固定铺满、位于最底层、不吃鼠标事件；数量与位置由脚本生成。
+   opacity 跟着 body.sv 走，和整页底色一起淡入淡出。 */
+#bg{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none;
+  opacity:0;transition:opacity .55s ease}
+body.sv #bg{opacity:1}
+.bk{position:absolute;display:block;border-radius:4px;opacity:.15;
+  will-change:opacity,transform;
+  animation:bkflicker var(--dur) ease-in-out infinite alternate;
+  animation-delay:var(--delay)}
+/* 暗色主题：底是黑的，方块用霓虹亮色，靠「由暗到亮」呼吸（brightness 拉高 + opacity 冲高） */
+@keyframes bkflicker{
+  0%{opacity:.05;transform:scale(.85);filter:brightness(.4)}
+  50%{opacity:.9;transform:scale(1.05);filter:brightness(1.6)}
+  100%{opacity:.2;transform:scale(.95);filter:brightness(.8)}
+}
+/* 亮色主题：底是浅的，方块改用深彩色，呼吸方向反过来——「由浅到深」。
+   峰值不透明度压到 0.70：浅底上深色块太实会糊成一片脏斑，淡淡地透出来才干净。
+   这里刻意**不做 brightness**：深彩块在白底上只靠不透明度变化就够表达呼吸，
+   而 filter 会让每帧多一次光栅化（实测占了大头），省掉它明显更省电。 */
+body:not(.dk) .bk{animation-name:bkflickerLt}
+@keyframes bkflickerLt{
+  0%{opacity:.14;transform:scale(.85)}
+  50%{opacity:.70;transform:scale(1.05)}
+  100%{opacity:.22;transform:scale(.95)}
+}
+#twrap{position:relative}
+#tm{position:absolute;top:52px;right:0;z-index:5;display:flex;flex-direction:column;gap:2px;
+  padding:6px;min-width:118px;border:1px solid #e8e8e8;border-radius:12px;background:#fff;
+  box-shadow:0 8px 28px rgba(0,0,0,.14)}
+#tm[hidden]{display:none}
+#tm>*{display:flex;align-items:center;gap:9px;padding:9px 12px;border-radius:8px;
+  color:#1c1c1c;text-decoration:none;cursor:pointer;
+  font:500 13px/1.2 -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",Helvetica,Arial,sans-serif}
+#tm>*::before{content:"";width:6px;height:6px;border-radius:50%;background:transparent}
+#tm>.cur{font-weight:700}
+#tm>.cur::before{background:#1c1c1c}
+#tm>a:hover{background:#f2f2f2}
+#meta{
+  position:absolute;top:100%;left:0;right:0;margin-top:1em;text-align:center;white-space:nowrap;
+  font-size:clamp(12px,.16em,72px);font-weight:400;color:#3c3c3c;letter-spacing:.02em;
+  opacity:0;transform:translateY(-6px);
+  transition:opacity .3s ease,transform .3s ease;
+  pointer-events:none;
+}
+body.on #meta{opacity:1;transform:translateY(0)}
+#hot{position:fixed;left:0;right:0;bottom:0;height:32vh;z-index:2}
+@media (max-width:480px){#hot{height:42vh}}
+</style>
+</head>
+<body>
+<div id="bg" aria-hidden="true"></div>
+<div id="stage">
+  <div id="clock"></div>
+  <div id="meta"></div>
+</div>
+<div id="bar">
+  <button id="svb" type="button" title="打开屏保：背景方块" aria-label="屏保"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linejoin="round"><g class="i1"><rect x="3.6" y="3.6" width="16.8" height="16.8" rx="3.4" stroke-width="1.7"/><rect x="8.7" y="8.7" width="6.6" height="6.6" rx="1.6" stroke-width="1.7" stroke-opacity=".55"/></g><g class="i2" fill="currentColor" stroke="none"><rect x="3.4" y="3.4" width="7.2" height="7.2" rx="1.9"/><rect x="13.6" y="6.2" width="7" height="7" rx="1.9"/><rect x="6.6" y="13.8" width="7" height="7" rx="1.9"/><rect x="16.4" y="16.4" width="4.2" height="4.2" rx="1.2"/></g></svg></button>
+  <button id="lm" type="button" title="切换为暗色主题" aria-label="亮度"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><g class="i1"><circle cx="12" cy="12" r="4.3"/><path d="M12 2.5v2.4M12 19.1v2.4M2.5 12h2.4M19.1 12h2.4M5.3 5.3l1.7 1.7M17 17l1.7 1.7M18.7 5.3L17 7M7 17l-1.7 1.7"/></g><g class="i2"><path d="M20.4 14.6A8.7 8.7 0 0 1 9.4 3.6a8.7 8.7 0 1 0 11 11z"/></g></svg></button>
+  <div id="twrap">
+    <button id="th" type="button" title="主题：时间">时间</button>
+    <div id="tm" hidden>
+      <span class="cur">时间</span>
+      <a href="clock/">时钟</a>
+    </div>
+  </div>
+  <button id="tf" title="切换为12小时制">24H</button>
+  <button id="fs" title="全屏" aria-label="全屏"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path class="i1" d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/><path class="i2" d="M9 4v5H4M15 4v5h5M9 20v-5H4M15 20v-5h5"/></svg></button>
+</div>
+<div id="hot"></div>
+<script>
+(function(){
+  var t=document.getElementById('clock'),m=document.getElementById('meta'),
+      hot=document.getElementById('hot'),stage=document.getElementById('stage'),
+      W='日一二三四五六',lastDay='';
+
+  /* 8 个固定宽度格子（2、5 为冒号）+ 上下午标，任何组合下总宽度恒定 */
+  var cells=[],last=['','','','','','','',''],i,lastAp=null;
+  for(i=0;i<8;i++){
+    var e=document.createElement('i');
+    e.className=(i==2||i==5)?'c':'n';
+    t.appendChild(e);cells.push(e);
+  }
+  var apEl=document.createElement('i');
+  apEl.className='ap';
+  t.appendChild(apEl);
+
+  function pad(n){return n<10?'0'+n:''+n}
+
+  /* ===== 服务器时间：页面显示的时间取自服务器，不信任访客设备时钟 =====
+     ① 若服务器提供毫秒级接口，把 API 填成它的地址即可最准（支持返回毫秒数，或 {"t":毫秒} /
+        {"timestamp":毫秒} / {"now":毫秒} / {"data":{"t":毫秒}}）；
+     ② 未配 API 时，对同源地址发 HEAD 请求，读 HTTP 响应头 Date —— nginx/Apache/Node/Python
+        等静态服务器都会自动带上，无需任何后端；
+     ③ 两者都拿不到（离线 / 直接用 file:// 打开）则回退设备本地时间，页面照常显示。
+     关于精度（已实测）：Date 头只精确到整秒，单次取样只能定到 ±0.5 秒，且同一秒内的多次取样
+     相位相同、取平均无效。因此按 150ms 间隔连取 8 次（跨度约 1.05 秒），一旦 Date 的秒数发生
+     跳变，就说明该整秒边界落在相邻两次取样之间，可把相位锁定到约 ±75ms，比单次准 6 倍以上；
+     若 Date 被 CDN 缓存住（秒数不跳变）则退回「整秒中点」法，保证仍能用。
+     时间锚定方式：本地单调钟走时 + (服务器−本地) 偏移，每 5 分钟或页面重新可见时自动校准。 */
+  var API='',        /* 毫秒级接口地址，例如 '/api/time'；留空则用响应头 Date */
+      TZ=null,       /* null=跟随访客设备时区；填数字如 8 则固定为 UTC+8（北京时间） */
+      SRV=0, SYNC_AT=0, syncing=0, SYNC_KEY='srvSkew', SAMPLES=8, GAP=150;
+  function srvNow(){return Date.now()+SRV}
+  function cts(){
+    return window.performance&&performance.now?performance.timeOrigin+performance.now():Date.now();
+  }
+  function apiMs(t){
+    var s=t.trim(),n=/^-?\d{9,14}$/.exec(s);
+    if(n)return +s;
+    try{
+      var j=JSON.parse(s),v=typeof j==='number'?j:(j.t||j.timestamp||j.now||j.ms||
+        (j.data&&(j.data.t||j.data.timestamp)));
+      if(v!=null)return +v;
+    }catch(e){}
+    var d=Date.parse(s);return isNaN(d)?NaN:d;
+  }
+  /* 单次取样：返回 {v:服务器整秒毫秒值 或 exact:精确毫秒, t0/t1:请求起止本地毫秒} */
+  function probe(){
+    if(!window.fetch)return Promise.reject(0);
+    var t0=cts(),
+        u=(API||location.pathname)+'?_='+Math.random().toString(36).slice(2),
+        o={cache:'no-store'};
+    if(!API)o.method='HEAD';
+    return fetch(u,o).then(function(r){
+      var t1=cts();
+      if(API)return r.text().then(function(b){
+        var v=apiMs(b);if(isNaN(v))throw 0;
+        return {exact:v,t0:t0,t1:t1};
+      });
+      var h=r.headers.get('date'),v=h?Date.parse(h):NaN;
+      if(isNaN(v))throw 0;
+      return {v:v,t0:t0,t1:t1};
+    });
+  }
+  function mid(x){return (x.t0+x.t1)/2}
+  /* 由样本估算「服务器 − 本地」偏移 */
+  function skewOf(s){
+    var br=[],raw=[],i,x,t=0;
+    for(i=0;i<s.length;i++){
+      x=s[i];
+      if(x.exact!=null)return x.exact-mid(x);          /* 毫秒接口：精确 */
+      raw.push(x.v+500-mid(x));                        /* 兜底：整秒中点 */
+      if(i&&x.v-s[i-1].v===1)                          /* 秒数跳变：边界必在两次取样之间 */
+        br.push(x.v*1000-(mid(s[i-1])+mid(x))/2);
+    }
+    if(br.length){for(i=0;i<br.length;i++)t+=br[i];return t/br.length}
+    for(i=0;i<raw.length;i++)t+=raw[i];return t/raw.length;
+  }
+  function skewApply(v,save){
+    SRV=Math.round(v);SYNC_AT=Date.now();
+    if(save){try{localStorage.setItem(SYNC_KEY,SRV+','+SYNC_AT)}catch(e){}}
+    renderClock();renderDate();
+    if(save)fit();
+  }
+  function sync(){
+    if(syncing)return;
+    syncing=1;
+    var got=[],want=API?2:SAMPLES,n=0,timer=setTimeout(finish,3000);
+    function step(){if(++n>=want)finish()}
+    function one(){
+      probe().then(function(x){
+        got.push(x);
+        skewApply(skewOf(got),0);   /* 每取到一笔就先校准：首笔即让显示切到服务器时间 */
+        step();
+      },step);
+    }
+    function finish(){
+      clearTimeout(timer);syncing=0;
+      if(got.length)skewApply(skewOf(got),1);   /* 全部取完再定稿（含跨秒相位）并落盘 */
+    }
+    for(var j=0;j<want;j++)setTimeout(one,j*(API?0:GAP));
+  }
+  /* 首屏先用上次的同步结果，避免「先显示错误时间再跳一下」 */
+  try{
+    var csk=localStorage.getItem(SYNC_KEY);
+    if(csk){var csa=csk.split(',');if(Date.now()-+csa[1]<864e5)SRV=+csa[0]||0}
+  }catch(e){}
+  sync();
+  addEventListener('online',sync);
+  document.addEventListener('visibilitychange',function(){
+    if(!document.hidden&&Date.now()-SYNC_AT>6e4)sync();
+  });
+  setInterval(function(){if(!document.hidden&&Date.now()-SYNC_AT>12e4)sync()},3e5);
+
+  /* 取时间字段：TZ 为 null 用访客设备时区，为数字则固定该 UTC 偏移 */
+  function F(ms){
+    var u=TZ!=null,d=new Date(u?ms+TZ*36e5:ms);
+    function q(n){return d[u?'getUTC'+n:'get'+n]()}
+    return {y:q('FullYear'),mo:q('Month'),d:q('Date'),h:q('Hours'),
+            mi:q('Minutes'),s:q('Seconds'),wd:q('Day')};
+  }
+  function isoWeek(y,mo,dt){
+    var x=new Date(Date.UTC(y,mo,dt));
+    x.setUTCDate(x.getUTCDate()+4-((x.getUTCDay()+6)%7));
+    var s=new Date(Date.UTC(x.getUTCFullYear(),0,1));
+    return Math.ceil(((x-s)/864e5+1)/7);
+  }
+  /* 日期行超宽时按实测宽度缩回 94% 以内 */
+  function clampMeta(){
+    var mr=m.getBoundingClientRect();
+    if(mr.width>innerWidth*.94)
+      m.style.fontSize=Math.floor(parseFloat(getComputedStyle(m).fontSize)*innerWidth*.94/mr.width)+'px';
+  }
+  /* 按实际字宽/字高等比适配：任意屏幕都占满约 86% 宽度且不溢出 */
+  function fit(){
+    t.style.fontSize='100px';
+    var r=t.getBoundingClientRect();
+    if(!r.width)return;
+    var fs=Math.min(innerWidth*.86/r.width*100,(innerHeight*.5)/r.height*100);
+    t.style.fontSize=Math.floor(fs)+'px';
+    /* 兜底自校正：移动端视口可能尚未稳定，按应用后的实测宽度再修一次 */
+    var w=t.getBoundingClientRect().width,want=innerWidth*.86;
+    if(w&&Math.abs(w-want)>1.5)t.style.fontSize=Math.floor(fs*want/w)+'px';
+    stage.style.fontSize=getComputedStyle(t).fontSize;
+    m.style.fontSize='';clampMeta();
+  }
+  function renderDate(){
+    var p=F(srvNow()),day=p.y+'-'+p.mo+'-'+p.d;
+    if(day!==lastDay){
+      lastDay=day;
+      m.textContent=p.y+'年'+(p.mo+1)+'月'+p.d+'日星期'+W[p.wd]+'，第'+isoWeek(p.y,p.mo,p.d)+'周';
+    }
+  }
+  function renderClock(){
+    var p=F(srvNow()),h=p.h,ap='';
+    if(h12){ap=h<12?'AM':'PM';h=h%12||12}
+    var s=pad(h)+pad(p.mi)+pad(p.s),k=0;
+    for(var j=0;j<8;j++){
+      var c=(j==2||j==5)?':':s.charAt(k++);
+      if(last[j]!==c){last[j]=c;cells[j].textContent=c}
+    }
+    if(lastAp!==ap){lastAp=ap;apEl.textContent=ap}
+  }
+  /* 对齐到服务器时间的整秒边界，避免累积漂移 */
+  function loop(){renderClock();renderDate();setTimeout(loop,1000-srvNow()%1000+5)}
+
+  /* 12/24 小时制切换，选择记入 localStorage 下次打开仍生效 */
+  var tf=document.getElementById('tf'),h12=false;
+  function setMode(v){
+    h12=v;
+    document.body.classList.toggle('h12',v);
+    tf.textContent=v?'12H':'24H';
+    tf.title=v?'切换为24小时制':'切换为12小时制';
+    try{localStorage.setItem('h12',v?'1':'0')}catch(e){}
+    renderClock();fit();
+  }
+  try{h12=localStorage.getItem('h12')==='1'}catch(e){}
+  tf.onclick=function(){setMode(!h12)};
+
+  /* 主题：鼠标移入即展开下拉；触屏改为点按开关。切主题=跳转到对应独立页面 */
+  var wrap=document.getElementById('twrap'),tm=document.getElementById('tm'),
+      th=document.getElementById('th'),tHide;
+  if(matchMedia('(hover:hover) and (pointer:fine)').matches){
+    wrap.addEventListener('mouseenter',function(){clearTimeout(tHide);tm.hidden=false});
+    wrap.addEventListener('mouseleave',function(){clearTimeout(tHide);tHide=setTimeout(function(){tm.hidden=true},140)});
+  }else{
+    th.addEventListener('click',function(e){e.stopPropagation();tm.hidden=!tm.hidden});
+    document.addEventListener('click',function(){tm.hidden=true});
+  }
+  addEventListener('keydown',function(e){if(e.key==='Escape')tm.hidden=true});
+
+  addEventListener('resize',fit);
+  addEventListener('orientationchange',fit);
+  if(document.fonts&&document.fonts.ready)document.fonts.ready.then(fit);
+
+  /* 全屏切换：图标同步为「进入/退出」，不支持全屏的设备（如 iPhone Safari）隐藏按钮 */
+  var fsb=document.getElementById('fs'),de=document.documentElement,
+      req=de.requestFullscreen||de.webkitRequestFullscreen;
+  function fsEl(){return document.fullscreenElement||document.webkitFullscreenElement||null}
+  function syncFS(){document.body.classList.toggle('fs',!!fsEl());fit();if(svOn)bkBuild()}
+  if(req)fsb.onclick=function(){
+    if(fsEl())(document.exitFullscreen||document.webkitExitFullscreen).call(document);
+    else req.call(de);
+  };
+  else fsb.style.display='none';
+  document.addEventListener('fullscreenchange',syncFS);
+  document.addEventListener('webkitfullscreenchange',syncFS);
+
+  /* 鼠标移到下方显示日期；触屏点按切换 */
+  var on=function(){document.body.classList.add('on')},
+      off=function(){document.body.classList.remove('on')};
+  if(matchMedia('(hover:hover) and (pointer:fine)').matches){
+    hot.addEventListener('mouseenter',on);
+    hot.addEventListener('mouseleave',off);
+  }else{
+    hot.addEventListener('click',function(){document.body.classList.toggle('on')});
+  }
+  addEventListener('blur',off);
+  document.addEventListener('visibilitychange',function(){if(document.hidden)off()});
+
+  /* ===== 屏保：背景闪烁霓虹方块 =====
+     取自参考实现的「方块屏保」，挂在右上角最前面那个屏保按钮上。
+     与时钟完全解耦：方块只铺在最底层 #bg 里（pointer-events:none），不参与布局、
+     不碰字体度量，所以时钟的字号、居中、等宽格宽一概不受影响。
+     默认关闭——打开页面就是原来的白底时间；点按钮 → 方块淡入（暗色主题下整页转深底），
+     再点一次淡出并清空。状态存 localStorage，下次进来保持。
+     两套主题（亮度开关切换，见 applyLum）：
+       · 暗色：深底 + 霓虹亮色方块 + 白色数字；
+       · 亮色：浅底 + 深彩色方块 + 深色数字。
+     两者只差「色板」与「关键帧」（见 CSS 的 bkflicker / bkflickerLt），几何与位置算法完全一样。
+     亮度未手动选过时跟随屏保：开屏保=暗色、无屏保=亮色，于是默认观感与加开关之前完全一致。
+     性能上的两点收紧（纯装饰层不该抢时钟的帧与显存）：
+     ① 数量按屏幕面积算（约每 1.3 万 px² 一块）——1080p 约 160 块、手机自动降到 60 块，
+        窗口尺寸变化时防抖 240ms 重建；
+     ② will-change 只声明 opacity/transform。box-shadow 不可合成，写进 will-change
+        只会让每块各自多占一份带大范围阴影的显存纹理，反而更慢。
+     参考实现里那句 transform:rotate(...) 是无效的——@keyframes 里的 transform:scale()
+     会整个覆盖它，所以这里直接不写，省一次无谓的样式计算。
+     关闭时等淡出结束再清空 DOM：否则那批节点会留在后台继续跑动画空转。 */
+  var BK_DK=['#00ffc8','#00b3ff','#7a5cff','#ff3ea5','#ffd166','#39ff14','#ff5c5c','#ffffff'],
+      BK_LT=['#0d9488','#2563eb','#7c3aed','#db2777','#ca8a04','#16a34a','#dc2626','#475569'],
+      BK_N=8,
+      svb=document.getElementById('svb'),lmb=document.getElementById('lm'),bkBox=document.getElementById('bg'),
+      SV_KEY='svOn',LM_KEY='lmDk',svOn=0,lmV=null,bkRsz=0,bkStop=0;
+  function bkRand(a,b){return a+Math.random()*(b-a)}
+  function isDark(){return document.body.classList.contains('dk')}
+  function bkPal(){return isDark()?BK_DK:BK_LT}
+  /* 上色：色号 ri 决定取色板第几号色。两套色板一一对应（同一位是同一个色系），
+     所以换主题时按色号重涂，整体色调迁移而不是整屏跳成另一批点。 */
+  function bkPaint(el,size,ri){
+    var c=bkPal()[ri];
+    el.style.background=c;
+    el.style.boxShadow=isDark()
+      ? '0 0 '+size*1.5+'px '+c+',0 0 '+size*3+'px '+c+'55'  /* 暗底：大范围彩色外发光 */
+      : '0 0 '+size*1.9+'px '+c+'2b';                        /* 浅底：单层彩色晕开，小方块才不显单薄 */
+  }
+  function bkBuild(){
+    var W=innerWidth,H=innerHeight,
+        n=Math.max(60,Math.min(160,Math.round(W*H/13000))),
+        frag=document.createDocumentFragment(),i,el,size,ri;
+    for(i=0;i<n;i++){
+      size=Math.random()<.85?bkRand(6,22):bkRand(30,80);  /* 小方块为主，偶尔来一块大的 */
+      ri=(Math.random()*BK_N)|0;
+      el=document.createElement('div');
+      el.className='bk';
+      el.style.cssText='width:'+size+'px;height:'+size+'px;left:'+bkRand(0,Math.max(0,W-size))+
+        'px;top:'+bkRand(0,Math.max(0,H-size))+'px';
+      el.dataset.s=size;el.dataset.c=ri;                  /* 记下尺寸与色号，换主题时重涂用 */
+      bkPaint(el,size,ri);
+      el.style.setProperty('--dur',bkRand(1.2,4.5).toFixed(2)+'s');
+      el.style.setProperty('--delay',bkRand(0,4).toFixed(2)+'s');
+      frag.appendChild(el);
+    }
+    bkBox.textContent='';
+    bkBox.appendChild(frag);
+  }
+  function bkTheme(){        /* 切换明暗：只给已铺好的方块换色，位置不动，不整屏重跳 */
+    var els=bkBox.children,i,el;
+    for(i=0;i<els.length;i++){el=els[i];bkPaint(el,+el.dataset.s,+el.dataset.c)}
+  }
+  /* 亮度：lmV 为 'dk'/'lt'，null 表示用户还没选过。未选过时跟随屏保状态——
+     开屏保默认暗色（即加这个开关之前的观感），没开屏保就是原来的白底时间。 */
+  function dark(){return lmV==='dk'||(lmV===null&&!!svOn)}
+  function applyLum(){
+    var d=dark();
+    document.body.classList.toggle('dk',d);
+    lmb.title=d?'切换为亮色主题':'切换为暗色主题';
+    bkTheme();
+  }
+  function svSet(v,save){
+    v=!!v;
+    document.body.classList.toggle('sv',v);
+    svb.title=v?'关闭屏保':'打开屏保：背景方块';
+    if(save){try{localStorage.setItem(SV_KEY,v?'1':'0')}catch(e){}}
+    if(v===svOn)return;
+    svOn=v;
+    applyLum();                                 /* 先定主题，再按新主题铺方块 */
+    if(v){
+      clearTimeout(bkStop);
+      if(!bkBox.childElementCount)bkBuild();  /* 首次开启才生成；关掉再开沿用原布局 */
+    }else{
+      bkStop=setTimeout(function(){if(!svOn)bkBox.textContent=''},600);
+    }
+  }
+  svb.onclick=function(){svSet(!svOn,1)};
+  lmb.onclick=function(){
+    lmV=dark()?'lt':'dk';
+    try{localStorage.setItem(LM_KEY,lmV)}catch(e){}
+    applyLum();
+  };
+  addEventListener('resize',function(){         /* 拖拽窗口时防抖，避免频繁重建 */
+    clearTimeout(bkRsz);
+    bkRsz=setTimeout(function(){if(svOn)bkBuild()},240);
+  });
+  try{
+    var s=localStorage.getItem(LM_KEY);lmV=(s==='lt'||s==='dk')?s:null;
+    if(localStorage.getItem(SV_KEY)==='1')svSet(1,0);else applyLum();
+  }catch(e){applyLum()}
+
+  setMode(h12);
+  loop();
+})();
+</script>
+</body>
+</html>
