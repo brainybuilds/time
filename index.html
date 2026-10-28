@@ -90,25 +90,38 @@ body.dk #lm{opacity:1}
 #bg{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none;
   opacity:0;transition:opacity .55s ease}
 body.sv #bg{opacity:1}
-.bk{position:absolute;display:block;border-radius:4px;opacity:.15;
+/* 每块方块是一条完整的生命周期（不是无限往返的明暗呼吸）：
+   0% 全透明 → 15% 亮起 → 中间一次回落 → 64% 再亮一次 → 82% 彻底消失 → 100% 保持全透明。
+   注意 82%~100% 这一段 opacity 恒为 0，是留给脚本的「真空窗」：animationiteration
+   在 100% 触发，此时元素本来就不可见，脚本在这个瞬间把它挪到新的随机位置、换大小换颜色，
+   下一轮再从 0% 淡入——所以看不到任何瞬移，观感就是「这块消失了，别处又冒出一块」。
+   反过来，若把 0%/100% 的 opacity 写成 0.05 之类的小值（旧版就是），方块其实一直存在，
+   只是明暗在变，位置自然永远固定。 */
+.bk{position:absolute;display:block;border-radius:4px;opacity:0;
   will-change:opacity,transform;
-  animation:bkflicker var(--dur) ease-in-out infinite alternate;
+  animation:bkflicker var(--dur) ease-in-out infinite;
   animation-delay:var(--delay)}
 /* 暗色主题：底是黑的，方块用霓虹亮色，靠「由暗到亮」呼吸（brightness 拉高 + opacity 冲高） */
 @keyframes bkflicker{
-  0%{opacity:.05;transform:scale(.85);filter:brightness(.4)}
-  50%{opacity:.9;transform:scale(1.05);filter:brightness(1.6)}
-  100%{opacity:.2;transform:scale(.95);filter:brightness(.8)}
+  0%{opacity:0;transform:scale(.82);filter:brightness(.3)}
+  15%{opacity:.92;transform:scale(1.05);filter:brightness(1.6)}
+  40%{opacity:.34;transform:scale(.96);filter:brightness(.85)}
+  64%{opacity:.95;transform:scale(1.06);filter:brightness(1.7)}
+  82%{opacity:0;transform:scale(.84);filter:brightness(.25)}
+  100%{opacity:0;transform:scale(.82);filter:brightness(.25)}
 }
 /* 亮色主题：底是浅的，方块改用深彩色，呼吸方向反过来——「由浅到深」。
-   峰值不透明度压到 0.70：浅底上深色块太实会糊成一片脏斑，淡淡地透出来才干净。
+   峰值不透明度压到 0.72：浅底上深色块太实会糊成一片脏斑，淡淡地透出来才干净。
    这里刻意**不做 brightness**：深彩块在白底上只靠不透明度变化就够表达呼吸，
    而 filter 会让每帧多一次光栅化（实测占了大头），省掉它明显更省电。 */
 body:not(.dk) .bk{animation-name:bkflickerLt}
 @keyframes bkflickerLt{
-  0%{opacity:.14;transform:scale(.85)}
-  50%{opacity:.70;transform:scale(1.05)}
-  100%{opacity:.22;transform:scale(.95)}
+  0%{opacity:0;transform:scale(.84)}
+  15%{opacity:.66;transform:scale(1.05)}
+  40%{opacity:.26;transform:scale(.97)}
+  64%{opacity:.72;transform:scale(1.06)}
+  82%{opacity:0;transform:scale(.86)}
+  100%{opacity:0;transform:scale(.84)}
 }
 #twrap{position:relative}
 #tm{position:absolute;top:52px;right:0;z-index:5;display:flex;flex-direction:column;gap:2px;
@@ -411,21 +424,33 @@ body.on #meta{opacity:1;transform:translateY(0)}
       ? '0 0 '+size*1.5+'px '+c+',0 0 '+size*3+'px '+c+'55'  /* 暗底：大范围彩色外发光 */
       : '0 0 '+size*1.9+'px '+c+'2b';                        /* 浅底：单层彩色晕开，小方块才不显单薄 */
   }
+  /* 给一块重新随机：位置、大小、颜色。只在它彻底不可见的那一刻调用（见下方注释），
+     所以换位置不会被看见。呼吸节奏（--dur/--delay）不在这里改——改了 duration 会让
+     CSS 动画重启动，反而丢掉当前相位。 */
+  function bkSpawn(el){
+    var size=Math.random()<.85?bkRand(6,22):bkRand(30,80),
+        ri=(Math.random()*BK_N)|0;
+    el.dataset.s=size;el.dataset.c=ri;                  /* 记下尺寸与色号，换主题时重涂用 */
+    el.style.width=size+'px';el.style.height=size+'px';
+    el.style.left=bkRand(0,Math.max(0,innerWidth-size))+'px';
+    el.style.top=bkRand(0,Math.max(0,innerHeight-size))+'px';
+    bkPaint(el,size,ri);
+  }
   function bkBuild(){
     var W=innerWidth,H=innerHeight,
         n=Math.max(60,Math.min(160,Math.round(W*H/13000))),
-        frag=document.createDocumentFragment(),i,el,size,ri;
+        frag=document.createDocumentFragment(),i,el,dur;
     for(i=0;i<n;i++){
-      size=Math.random()<.85?bkRand(6,22):bkRand(30,80);  /* 小方块为主，偶尔来一块大的 */
-      ri=(Math.random()*BK_N)|0;
       el=document.createElement('div');
       el.className='bk';
-      el.style.cssText='width:'+size+'px;height:'+size+'px;left:'+bkRand(0,Math.max(0,W-size))+
-        'px;top:'+bkRand(0,Math.max(0,H-size))+'px';
-      el.dataset.s=size;el.dataset.c=ri;                  /* 记下尺寸与色号，换主题时重涂用 */
-      bkPaint(el,size,ri);
-      el.style.setProperty('--dur',bkRand(1.2,4.5).toFixed(2)+'s');
-      el.style.setProperty('--delay',bkRand(0,4).toFixed(2)+'s');
+      dur=bkRand(3.4,7.2);
+      el.style.setProperty('--dur',dur.toFixed(2)+'s');
+      /* 负的 delay：动画一上来就已经「跑了 r 秒」，于是同屏各块处在生命周期的
+         不同阶段（有的刚冒头、有的正亮、有的在消退），不会整屏同步呼吸。 */
+      el.style.setProperty('--delay',(-bkRand(0,dur)).toFixed(2)+'s');
+      bkSpawn(el);
+      /* 一轮走完（opacity 已回 0）就换个地方重新长出来——这就是「随机产生和消失」 */
+      el.addEventListener('animationiteration',function(){bkSpawn(this)});
       frag.appendChild(el);
     }
     bkBox.textContent='';
@@ -454,7 +479,7 @@ body.on #meta{opacity:1;transform:translateY(0)}
     applyLum();                                 /* 先定主题，再按新主题铺方块 */
     if(v){
       clearTimeout(bkStop);
-      if(!bkBox.childElementCount)bkBuild();  /* 首次开启才生成；关掉再开沿用原布局 */
+      bkBuild();        /* 每次开启都整批重建：位置、大小、颜色、呼吸节奏全部重新随机 */
     }else{
       bkStop=setTimeout(function(){if(!svOn)bkBox.textContent=''},600);
     }
